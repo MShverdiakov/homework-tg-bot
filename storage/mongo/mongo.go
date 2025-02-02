@@ -210,10 +210,12 @@ func (m *HomeworkDatabase) CreateUser(ctx context.Context, userID, username stri
 	// Only create new user if they don't exist
 	if err == mongo.ErrNoDocuments {
 		user := User{
-			UserID:    userID,
-			Username:  username,
-			CreatedAt: time.Now(),
-			Schedule:  []DaySchedule{}, // Empty schedule, will be initialized separately
+			UserID:       userID,
+			Username:     username,
+			CreatedAt:    time.Now(),
+			Schedule:     []DaySchedule{}, // Empty schedule, will be initialized separately
+			UserContacts: []string{},
+			IsParent:     false,
 		}
 
 		_, err = collection.InsertOne(ctx, user)
